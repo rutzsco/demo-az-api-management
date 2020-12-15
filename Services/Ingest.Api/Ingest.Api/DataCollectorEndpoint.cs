@@ -13,11 +13,14 @@ namespace Ingest.Api
     public static class DataCollectorEndpoint
     {
         [FunctionName("DataCollectorEndpoint")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = "{name}")] HttpRequest req, string name, ILogger log)
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = "events/{customerName}")] HttpRequest req, string customerName, ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            return new OkObjectResult(name);
+            //string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            //dynamic data = JsonConvert.DeserializeObject(requestBody);
+
+            return new OkObjectResult(customerName);
         }
     }
 }
