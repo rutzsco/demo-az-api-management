@@ -348,3 +348,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+Services/Ingest.Api/Ingest.Api/local.settings.json
+Services/SimulationService/Simulation.Service/local.settings.json
+Services/SimulationService/Simulation.Service/Properties/serviceDependencies.local.json
+Services/Ingest.Api/Ingest.Api/Properties/serviceDependencies.local.json
