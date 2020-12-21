@@ -48,7 +48,7 @@ stages:
                 appType: functionApp
                 appName: $(app-name)
                 package: '$(Pipeline.Workspace)/build/App/Ingest.Api.zip'
-                AppSettings: ''
+                AppSettings: '-ProcessorName Common'
 
             - task: AzureResourceGroupDeployment@2
               displayName: '3. Create Function Infrastructure'
@@ -67,4 +67,4 @@ stages:
                 appType: functionApp
                 appName: $(app-name2)
                 package: '$(Pipeline.Workspace)/build/App/Ingest.Api.zip'
-                AppSettings: ''
+                AppSettings: '-ProcessorName VendorA'
