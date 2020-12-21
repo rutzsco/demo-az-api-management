@@ -10,6 +10,7 @@ variables:
   azureSubscription: 'Demo Account'
   region: 'East US'
   app-name: 'rutzsco-demo-api-management-ingest-api'
+  app-name2: 'rutzsco-demo-api-management-ingest-api2'
   storageAccountName: 'azfuncapimiaci'
   resourceGroupName: 'rutzsco-demo-api-management'  
 
@@ -46,5 +47,24 @@ stages:
                 azureSubscription: '$(azureSubscription)'
                 appType: functionApp
                 appName: $(app-name)
+                package: '$(Pipeline.Workspace)/build/App/Ingest.Api.zip'
+                AppSettings: ''
+
+            - task: AzureResourceGroupDeployment@2
+              displayName: '3. Create Function Infrastructure'
+              inputs:
+                azureSubscription: '$(azureSubscription)'
+                resourceGroupName: '$(resourceGroupName)'
+                location: '$(region)'
+                csmFile: '$(Pipeline.Workspace)/build/Infrastructure/function-app-consumption.json'
+                overrideParameters: '-appName $(app-name2) -storageAccountName $(storageAccountName)'
+                deploymentOutputs: ResourceGroupDeploymentOutputs
+
+            - task: AzureFunctionApp@1
+              displayName: '4. Azure functions app deploy'
+              inputs:
+                azureSubscription: '$(azureSubscription)'
+                appType: functionApp
+                appName: $(app-name2)
                 package: '$(Pipeline.Workspace)/build/App/Ingest.Api.zip'
                 AppSettings: ''
