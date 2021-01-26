@@ -6,6 +6,7 @@ This project contains a reference of using and identity(JWT) to route an enpoint
 
 ![alt text](apim-routing.png)
 
+![alt text](apim-aad-auth.png)
 
 ### Routing Policy
 
