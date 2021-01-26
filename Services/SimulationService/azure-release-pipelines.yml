@@ -47,4 +47,4 @@ stages:
                 appType: functionApp
                 appName: $(app-name)
                 package: '$(Pipeline.Workspace)/build/App/Simulation.Service.zip'
-                AppSettings: '-AuthTenantId $(AuthTenantId) -AuthClientId $(AuthClientId) -AuthClientSecret $(AuthClientSecret)' -EndpointUrl $(EndpointUrl) -AuthScope $(AuthScope) -Ocp-Apim-Subscription-Key $(Ocp-Apim-Subscription-Key)'
+                AppSettings: '-AuthTenantId $(AuthTenantId) -AuthClientId $(AuthClientId) -AuthClientSecret $(AuthClientSecret) -EndpointUrl $(EndpointUrl) -AuthScope $(AuthScope) -Ocp-Apim-Subscription-Key $(Ocp-Apim-Subscription-Key)'
