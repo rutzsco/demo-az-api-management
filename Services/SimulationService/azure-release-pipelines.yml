@@ -11,7 +11,7 @@ variables:
   region: 'East US'
   app-name: 'demo-api-managment-simulation-service'
   storageAccountName: 'azfuncapimssci'
-  resourceGroupName: 'demo-api-managment'  
+  resourceGroupName: 'rutzsco-demo-api-management'  
 
 stages:
  - stage: CI
@@ -47,4 +47,4 @@ stages:
                 appType: functionApp
                 appName: $(app-name)
                 package: '$(Pipeline.Workspace)/build/App/Simulation.Service.zip'
-                AppSettings: ''
+                AppSettings: '-AuthTenantId $(AuthTenantId) -AuthClientId $(AuthClientId) -AuthClientSecret $(AuthClientSecret)' -EndpointUrl $(EndpointUrl) -AuthScope $(AuthScope) -Ocp-Apim-Subscription-Key $(Ocp-Apim-Subscription-Key)'
