@@ -1,0 +1,13 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "AuthTenantId": "",
+    "AuthClientId": "",
+    "AuthClientSecret": "",
+    "EndpointUrl": "",
+    "AuthScope": "",
+    "Ocp-Apim-Subscription-Key": ""
+  }
+}

@@ -1,0 +1,31 @@
+    <inbound>
+        <base />
+        <validate-jwt header-name="Authorization" failed-validation-httpcode="401" failed-validation-error-message="Unauthorized. Access token is missing or invalid.">
+            <openid-config url="https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/.well-known/openid-configuration" />
+            <required-claims>
+                <claim name="aud" match="any">
+                    <value>api://0c9aa582-a623-4e1e-8dc0-b5aeee41b8d7</value>
+                    <value>0c9aa582-a623-4e1e-8dc0-b5aeee41b8d7</value>
+                </claim>
+                <claim name="appid" match="any">
+                    <value>effeaebb-dfcb-468b-a321-52f919f46cdf</value>
+                    <value>830d4308-9e62-464e-9eb6-2381a57bb654</value>
+                </claim>
+            </required-claims>
+        </validate-jwt>
+        <set-variable name="azureAppId" value="@(context.Request.Headers["Authorization"].First().Split(' ')[1].AsJwt()?.Claims["appid"].FirstOrDefault())" />
+        <choose>
+            <when condition="@(context.Variables.GetValueOrDefault<string>("azureAppId").Equals("effeaebb-dfcb-468b-a321-52f919f46cdf"))">
+                <set-backend-service base-url="https://rutzsco-demo-api-management-ingest-api2.azurewebsites.net/api/" />
+                <set-header name="x-functions-key" exists-action="append">
+                    <value>HroLSbFy2LU/44JxFPkXjC4yqQwpUqrEIty8R/HiLaKpDLq9GZa0DQ==</value>
+                </set-header>
+            </when>
+            <otherwise>
+                <set-backend-service base-url="https://rutzsco-demo-api-management-ingest-api.azurewebsites.net/api/" />
+                <set-header name="x-functions-key" exists-action="append">
+                    <value>CfmOdpmooPob19DO49Tb4E1PgjJ9nv0QMMdBxkR5Uyvxuc8qViN7sQ==</value>
+                </set-header>
+            </otherwise>
+        </choose>
+    </inbound>
