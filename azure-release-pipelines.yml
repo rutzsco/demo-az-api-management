@@ -1,0 +1,44 @@
+trigger: none
+
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'demo-az-api-management - BUILD'
+  
+variables:
+  vmImageName: 'ubuntu-latest'
+  azureSubscription: 'Demo Account'
+  region: 'East US'
+  serviceName: 'rutzsco-demo-api-management'
+  publisherName: 'rutzsco'
+  publisherEmail: 'scrutz@microsoft.com'
+  storageAccountName: 'azfuncapimssci'
+  resourceGroupName: 'rutzsco-demo-api-management'  
+
+stages:
+ - stage: CI
+   displayName: CI stage 
+    
+   jobs:
+   - deployment: Deploy
+     displayName: Deploy
+     environment: 'CI'
+     pool:
+        vmImage: $(vmImageName)   
+      
+     strategy:
+        runOnce:
+          deploy:
+  
+            steps:
+           
+            - task: AzureResourceManagerTemplateDeployment@3
+              displayName: '1. API Management Core - Deploy'
+              inputs:
+                azureResourceManagerConnection: 'Demo Account'
+                subscriptionId: '164a84cf-b099-4567-a527-c2a8143a32c7'
+                resourceGroupName: 'rutzsco-demo-api-management'
+                location: 'East US'
+                csmFile: '$(System.DefaultWorkingDirectory)/_BUILD/Infrastructure/api-managment-core.json'
+                overrideParameters: '-serviceName $(serviceName) -publisherEmail $(publisherEmail) -publisherName $(publisherName)'
+
