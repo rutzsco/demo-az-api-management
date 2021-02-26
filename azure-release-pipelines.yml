@@ -39,6 +39,6 @@ stages:
                 subscriptionId: '164a84cf-b099-4567-a527-c2a8143a32c7'
                 resourceGroupName: 'rutzsco-demo-api-management'
                 location: 'East US'
-                csmFile: '$(System.DefaultWorkingDirectory)/_BUILD/Infrastructure/api-managment-core.json'
+                csmFile: '$(Pipeline.Workspace)/build/Infrastructure/api-managment-core.json'
                 overrideParameters: '-serviceName $(serviceName) -publisherEmail $(publisherEmail) -publisherName $(publisherName)'
 
