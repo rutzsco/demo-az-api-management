@@ -2,13 +2,13 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "serviceName": {
-      "type": "string"
-    },
+		"serviceName": {
+			"type": "string"
+		},
     "productName": {
-      "type": "string",
+			"type": "string",
       "defaultValue": "Standard"
-    },
+		},
     "publisherEmail": {
       "type": "string",
       "minLength": 1,
@@ -52,7 +52,22 @@
       "metadata": {
         "description": "Location for all resources."
       }
-    }
+    },
+    "AADRegistrationName": {
+			"type": "string"
+		},
+    "AADClientId": {
+			"type": "string"
+		},
+    "AADClientSecret": {
+			"type": "string"
+		},
+    "AADAuthorizationEndpoint": {
+			"type": "string"
+		},
+    "AADTokenEndpoint": {
+			"type": "string"
+		}
   },
   "resources": [
     {
@@ -68,23 +83,49 @@
         "publisherEmail": "[parameters('publisherEmail')]",
         "publisherName": "[parameters('publisherName')]"
       },
-      "resources": [
-        {
-          "apiVersion": "2019-12-01",
-          "type": "products",
-          "name": "[parameters('ProductName')]",
-          "dependsOn": [
-            "[concat('Microsoft.ApiManagement/service/', parameters('serviceName'))]"
+		"resources": [
+			{
+				"apiVersion": "2019-12-01",
+				"type": "products",
+				"name": "[parameters('ProductName')]",
+				"dependsOn": [
+					"[concat('Microsoft.ApiManagement/service/', parameters('serviceName'))]"
+				],
+				"properties": {
+					"displayName": "[parameters('productName')]",
+					"description": "[parameters('productName')]",
+					"terms": "Terms for example product",
+					"subscriptionRequired": false,
+					"state": "published"
+				}
+			}
+		]
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/authorizationServers",
+      "apiVersion": "2019-12-01",
+      "name": "[concat(parameters('serviceName'), '/', parameters('AADRegistrationName'))]",
+      "dependsOn": [
+          "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
+      ],
+      "properties": {
+          "displayName": "[parameters('AADRegistrationName')]",
+          "clientRegistrationEndpoint": "http://localhost",
+          "authorizationEndpoint": "[parameters('AADAuthorizationEndpoint')]",
+          "authorizationMethods": [
+              "GET"
           ],
-          "properties": {
-            "displayName": "[parameters('productName')]",
-            "description": "[parameters('productName')]",
-            "terms": "Terms for example product",
-            "subscriptionRequired": false,
-            "state": "published"
-          }
-        }
-      ]
+          "clientAuthenticationMethod": [
+              "Body"
+          ],
+          "tokenEndpoint": "[parameters('AADTokenEndpoint')]",
+          "grantTypes": [
+              "authorizationCode"
+          ],
+          "clientId": "[parameters('AADClientId')]",
+          "clientSecret" : "[parameters('AADClientSecret')]",
+          "bearerTokenSendingMethods" : [ "authorizationHeader" ]
+      }
     }
   ]
 }

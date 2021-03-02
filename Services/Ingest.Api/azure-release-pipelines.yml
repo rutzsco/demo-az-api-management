@@ -13,7 +13,8 @@ variables:
   app-name2: 'rutzsco-demo-api-management-ingest-api2'
   storageAccountName: 'azfuncapimiaci'
   resourceGroupName: 'rutzsco-demo-api-management'  
-
+  apimServiceName: 'rutzsco-demo-api-management'
+  AADRegistrationName: 'rutzsco-demo-api-management'  
 stages:
  - stage: CI
    displayName: CI stage 
@@ -51,20 +52,11 @@ stages:
                 AppSettings: '-ProcessorName Common'
 
             - task: AzureResourceGroupDeployment@2
-              displayName: '3. Create Function Infrastructure'
+              displayName: '1. Create Function Infrastructure'
               inputs:
                 azureSubscription: '$(azureSubscription)'
                 resourceGroupName: '$(resourceGroupName)'
                 location: '$(region)'
-                csmFile: '$(Pipeline.Workspace)/build/Infrastructure/function-app-consumption.json'
-                overrideParameters: '-appName $(app-name2) -storageAccountName $(storageAccountName)'
+                csmFile: '$(Pipeline.Workspace)/build/Infrastructure/api-managment-api.json'
+                overrideParameters: '-serviceName $(apimServiceName) -authorizationServer $(AADRegistrationName)'
                 deploymentOutputs: ResourceGroupDeploymentOutputs
-
-            - task: AzureFunctionApp@1
-              displayName: '4. Azure functions app deploy'
-              inputs:
-                azureSubscription: '$(azureSubscription)'
-                appType: functionApp
-                appName: $(app-name2)
-                package: '$(Pipeline.Workspace)/build/App/Ingest.Api.zip'
-                AppSettings: '-ProcessorName VendorA'
