@@ -13,15 +13,15 @@
   "resources": [
     {
       "type": "Microsoft.ApiManagement/service/apis",
-      "name": "[concat(parameters('serviceName'), '/httpBinAPI')]",
+      "name": "[concat(parameters('serviceName'), '/TelemetryAPI')]",
       "apiVersion": "2018-01-01",
       "scale": null,
       "properties": {
-        "displayName": "HTTP Bin API",
+        "displayName": "Telemetry API",
         "apiRevision": "1",
         "description": "API Management facade for a very handy and free online HTTP tool",
-        "serviceUrl": "https://httpbin.org",
-        "path": "httpbin",
+        "serviceUrl": "https://remote-monitor-ingest-ci.azurewebsites.net/api/IngestEndpoint",
+        "path": "telemetry",
         "protocols": [
           "https"
         ],
@@ -35,25 +35,25 @@
     },
     {
       "type": "Microsoft.ApiManagement/service/products/apis",
-      "name": "[concat(parameters('serviceName'), '/standard/httpBinAPI')]",
+      "name": "[concat(parameters('serviceName'), '/standard/TelemetryAPI')]",
       "apiVersion": "2018-01-01",
       "scale": null,
       "properties": {},
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'httpBinAPI')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'TelemetryAPI')]"
       ]
     },
     {
       "type": "Microsoft.ApiManagement/service/apis/operations",
-      "name": "[concat(parameters('serviceName'), '/httpBinAPI/get')]",
+      "name": "[concat(parameters('serviceName'), '/TelemetryAPI/post')]",
       "apiVersion": "2018-01-01",
       "scale": null,
       "properties": {
-        "displayName": "Returns GET data.",
-        "method": "GET",
-        "urlTemplate": "/get",
+        "displayName": "Accepts telemetry data",
+        "method": "POST",
+        "urlTemplate": "/post",
         "templateParameters": [],
-        "description": "Returns GET data.\n",
+        "description": "Send telemetry data",
         "responses": [
           {
             "statusCode": 200,
@@ -64,18 +64,18 @@
         "policies": null
       },
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'httpBinAPI')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'TelemetryAPI')]"
       ]
     },
     {
       "type": "Microsoft.ApiManagement/service/apis/policies",
-      "name": "[concat(parameters('serviceName'), '/httpBinAPI/policy')]",
+      "name": "[concat(parameters('serviceName'), '/TelemetryAPI/policy')]",
       "apiVersion": "2018-01-01",
       "properties": {
         "policyContent": "[concat('<policies>\r\n  <inbound>\r\n    <base />\r\n    <ip-filter action=\"forbid\"><address-range from=\"127.0.0.1\" to=\"127.0.0.1\" /></ip-filter>\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>')]"
       },
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'httpBinAPI')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'TelemetryAPI')]"
       ]
     }
   ]
