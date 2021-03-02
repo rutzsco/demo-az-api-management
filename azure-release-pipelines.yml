@@ -40,5 +40,5 @@ stages:
                 resourceGroupName: 'rutzsco-demo-api-management'
                 location: 'East US'
                 csmFile: '$(Pipeline.Workspace)/build/Infrastructure/api-managment-core.json'
-                overrideParameters: '-serviceName $(serviceName) -publisherEmail $(publisherEmail) -publisherName $(publisherName)'
+                overrideParameters: '-serviceName $(serviceName) -publisherEmail $(publisherEmail) -publisherName $(publisherName) -AADRegistrationName $(AADRegistrationName) -AADClientId $(AADClientId) -AADClientSecret $(AADClientSecret) -AADAuthorizationEndpoint $(AADAuthorizationEndpoint) -AADTokenEndpoint $(AADTokenEndpoint)'
 
