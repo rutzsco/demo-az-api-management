@@ -1,0 +1,69 @@
+trigger: none
+
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'demo-az-api-management - ingest api - BUILD'
+  
+variables:
+  vmImageName: 'vs2017-win2016'
+  azureSubscription: 'Demo Account'
+  region: 'East US'
+  app-name: 'rutzsco-demo-api-management-telemetry-api'
+  app-name2: 'rutzsco-demo-api-management-telemetry-api2'
+  storageAccountName: 'azfuncapimiart'
+  resourceGroupName: 'rutzsco-demo-api-management-routing' 
+stages:
+ - stage: CI
+   displayName: CI stage 
+    
+   jobs:
+   - deployment: Deploy
+     displayName: Deploy
+     environment: 'CI'
+     pool:
+        vmImage: $(vmImageName)   
+      
+     strategy:
+        runOnce:
+          deploy:
+  
+            steps:
+           
+            - task: AzureResourceGroupDeployment@2
+              displayName: '1. Create Function Infrastructure'
+              inputs:
+                azureSubscription: '$(azureSubscription)'
+                resourceGroupName: '$(resourceGroupName)'
+                location: '$(region)'
+                csmFile: '$(Pipeline.Workspace)/build/Infrastructure/function-app-consumption.json'
+                overrideParameters: '-appName $(app-name) -storageAccountName $(storageAccountName)'
+                deploymentOutputs: ResourceGroupDeploymentOutputs
+
+            - task: AzureFunctionApp@1
+              displayName: '2. Azure functions app deploy'
+              inputs:
+                azureSubscription: '$(azureSubscription)'
+                appType: functionApp
+                appName: $(app-name)
+                package: '$(Pipeline.Workspace)/build/App/Ingest.Api.zip'
+                AppSettings: '-ProcessorName Common'
+
+            - task: AzureResourceGroupDeployment@2
+              displayName: '3. Create Function Infrastructure'
+              inputs:
+                azureSubscription: '$(azureSubscription)'
+                resourceGroupName: '$(resourceGroupName)'
+                location: '$(region)'
+                csmFile: '$(Pipeline.Workspace)/build/Infrastructure/function-app-consumption.json'
+                overrideParameters: '-appName $(app-name2) -storageAccountName $(storageAccountName)'
+                deploymentOutputs: ResourceGroupDeploymentOutputs
+
+            - task: AzureFunctionApp@1
+              displayName: '4. Azure functions app deploy'
+              inputs:
+                azureSubscription: '$(azureSubscription)'
+                appType: functionApp
+                appName: $(app-name2)
+                package: '$(Pipeline.Workspace)/build/App/Ingest.Api.zip'
+                AppSettings: '-ProcessorName Vendor'
