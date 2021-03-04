@@ -1,0 +1,23 @@
+trigger:
+  branches:
+    include:
+    - master
+    - main
+  paths:
+    include:
+    - Services/Conference.Api/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  rootDirectory: 'Services/Conference.Api'
+
+steps:
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(rootDirectory)/Infrastructure'
+    artifact: 'Infrastructure'
+    publishLocation: 'pipeline'
