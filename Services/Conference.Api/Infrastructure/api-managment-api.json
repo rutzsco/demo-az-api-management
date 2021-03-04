@@ -13,33 +13,8 @@
   "resources": [
     {
       "type": "Microsoft.ApiManagement/service/apis",
-      "name": "[concat(parameters('serviceName'), '/TelemetryAPI')]",
-      "apiVersion": "2018-01-01",
-      "scale": null,
-      "properties": {
-        "displayName": "Telemetry API",
-        "apiRevision": "1",
-        "description": "API Management facade for a very handy and free online HTTP tool",
-        "serviceUrl": "https://remote-monitor-ingest-ci.azurewebsites.net/api/IngestEndpoint",
-        "path": "telemetry",
-        "protocols": [
-          "https"
-        ],
-        "authenticationSettings": {
-          "oAuth2": {
-            "authorizationServerId": "[parameters('authorizationServer')]"
-          }
-        },
-        "subscriptionKeyParameterNames": null
-      }
-    },
-    {
-      "type": "Microsoft.ApiManagement/service/apis",
       "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
-      ],
       "properties": {
         "displayName": "Demo Conference API",
         "apiRevision": "1",
@@ -59,8 +34,7 @@
       "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetSessions')]",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]",
-        "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
       ],
       "properties": {
         "displayName": "GetSessions",
@@ -109,8 +83,7 @@
       "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetSessionTopics')]",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]",
-        "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
       ],
       "properties": {
         "displayName": "GetSessionTopics",
@@ -145,8 +118,7 @@
       "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetSpeaker')]",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]",
-        "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
       ],
       "properties": {
         "displayName": "GetSpeaker",
@@ -183,8 +155,7 @@
       "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetSpeakers')]",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]",
-        "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
       ],
       "properties": {
         "displayName": "GetSpeakers",
@@ -227,8 +198,7 @@
       "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetSpeakerSessions')]",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]",
-        "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
       ],
       "properties": {
         "displayName": "GetSpeakerSessions",
@@ -262,8 +232,7 @@
       "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetSpeakerTopics')]",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]",
-        "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
       ],
       "properties": {
         "displayName": "GetSpeakerTopics",
@@ -297,8 +266,7 @@
       "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetTopic')]",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]",
-        "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
       ],
       "properties": {
         "displayName": "GetTopic",
@@ -332,8 +300,7 @@
       "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetTopics')]",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]",
-        "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
       ],
       "properties": {
         "displayName": "GetTopics",
@@ -371,8 +338,7 @@
       "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetTopicSessions')]",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]",
-        "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
       ],
       "properties": {
         "displayName": "GetTopicSessions",
@@ -406,8 +372,7 @@
       "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetTopicSpeakers')]",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]",
-        "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
       ],
       "properties": {
         "displayName": "GetTopicSpeakers",
@@ -441,8 +406,7 @@
       "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api/SubmitSession')]",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]",
-        "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
       ],
       "properties": {
         "displayName": "SubmitSession",
@@ -491,8 +455,7 @@
       "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api/policy')]",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]",
-        "[resourceId('Microsoft.ApiManagement/service', parameters('serviceName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
       ],
       "properties": {
         "value": "<policies>\r\n  <inbound>\r\n    <base />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>",
