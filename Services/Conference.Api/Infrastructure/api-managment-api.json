@@ -72,6 +72,64 @@
         ]
       }
     },
+    ,
+    {
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2020-06-01-preview",
+      "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetSessionTopics')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
+      ],
+      "properties": {
+        "displayName": "GetSessionTopics",
+        "method": "GET",
+        "urlTemplate": "/session/{id}/topics",
+        "templateParameters": [
+          {
+            "name": "id",
+            "description": "Format - int32.",
+            "type": "integer",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "A list of topics covered by a particular session",
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2020-06-01-preview",
+      "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetSpeaker')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
+      ],
+      "properties": {
+        "displayName": "GetSpeaker",
+        "method": "GET",
+        "urlTemplate": "/speaker/{id}",
+        "templateParameters": [
+          {
+            "name": "id",
+            "description": "Format - int32.",
+            "type": "integer",
+            "required": true,
+            "values": []
+          }
+        ],
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK"
+          }
+        ]
+      }
+    },
     {
       "type": "Microsoft.ApiManagement/service/apis/policies",
       "apiVersion": "2020-06-01-preview",
