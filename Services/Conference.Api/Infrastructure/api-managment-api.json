@@ -72,7 +72,6 @@
         ]
       }
     },
-    ,
     {
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2020-06-01-preview",
