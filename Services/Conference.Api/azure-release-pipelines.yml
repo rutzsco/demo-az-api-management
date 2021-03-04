@@ -3,7 +3,7 @@ trigger: none
 resources:
   pipelines:
   - pipeline: build
-    source: 'demo-az-api-management - conference api - BUILD'
+    source: 'demo-az-apim - conference api - BUILD'
   
 variables:
   vmImageName: 'vs2017-win2016'
