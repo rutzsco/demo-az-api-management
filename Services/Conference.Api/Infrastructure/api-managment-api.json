@@ -67,13 +67,7 @@
         "responses": [
           {
             "statusCode": 200,
-            "description": "OK",
-            "representations": [
-              {
-                "contentType": "application/vnd.collection+json"
-              }
-            ],
-            "headers": []
+            "description": "OK"
           }
         ]
       }
@@ -102,13 +96,7 @@
         "responses": [
           {
             "statusCode": 200,
-            "description": "OK",
-            "representations": [
-              {
-                "contentType": "application/vnd.collection+json"
-              }
-            ],
-            "headers": []
+            "description": "OK"
           }
         ]
       }
@@ -136,16 +124,7 @@
         "responses": [
           {
             "statusCode": 200,
-            "description": "OK",
-            "representations": [
-              {
-                "contentType": "application/vnd.hal+json"
-              },
-              {
-                "contentType": "text/plain"
-              }
-            ],
-            "headers": []
+            "description": "OK"
           }
         ]
       }
@@ -182,13 +161,7 @@
         "responses": [
           {
             "statusCode": 200,
-            "description": "OK",
-            "representations": [
-              {
-                "contentType": "application/vnd.collection+json"
-              }
-            ],
-            "headers": []
+            "description": "OK"
           }
         ]
       }
@@ -216,13 +189,7 @@
         "responses": [
           {
             "statusCode": 200,
-            "description": "OK",
-            "representations": [
-              {
-                "contentType": "application/vnd.collection+json"
-              }
-            ],
-            "headers": []
+            "description": "OK"
           }
         ]
       }
@@ -250,13 +217,7 @@
         "responses": [
           {
             "statusCode": 200,
-            "description": "OK",
-            "representations": [
-              {
-                "contentType": "application/vnd.collection+json"
-              }
-            ],
-            "headers": []
+            "description": "OK"
           }
         ]
       }
@@ -284,13 +245,7 @@
         "responses": [
           {
             "statusCode": 200,
-            "description": "OK",
-            "representations": [
-              {
-                "contentType": "application/hal+json"
-              }
-            ],
-            "headers": []
+            "description": "OK"
           }
         ]
       }
@@ -322,13 +277,7 @@
         "responses": [
           {
             "statusCode": 200,
-            "description": "OK",
-            "representations": [
-              {
-                "contentType": "application/vnd.collection+json"
-              }
-            ],
-            "headers": []
+            "description": "OK"
           }
         ]
       }
@@ -356,13 +305,7 @@
         "responses": [
           {
             "statusCode": 200,
-            "description": "OK",
-            "representations": [
-              {
-                "contentType": "application/vnd.collection+json"
-              }
-            ],
-            "headers": []
+            "description": "OK"
           }
         ]
       }
@@ -390,14 +333,7 @@
         "responses": [
           {
             "statusCode": 200,
-            "description": "OK",
-            "representations": [
-              {
-                "contentType": "application/vnd.collection+json"
-              }
-            ],
-            "headers": []
-          }
+            "description": "OK"
         ]
       }
     },
@@ -436,16 +372,7 @@
         "responses": [
           {
             "statusCode": 200,
-            "description": "OK",
-            "representations": [
-              {
-                "contentType": "application/hal+json"
-              },
-              {
-                "contentType": "text/plain"
-              }
-            ],
-            "headers": []
+            "description": "OK"
           }
         ]
       }
