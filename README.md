@@ -1,13 +1,32 @@
-# Demo API Managment - Routing
+# API Management
 
-This project contains a reference of using and identity(JWT) to route an enpoint to different implementations.
 
-### Overview
+### Administration 
 
-![alt text](apim-routing.png)
+- https://docs.microsoft.com/en-us/azure/api-management/api-management-role-based-access-control
+- https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-disaster-recovery-backup-restore
 
-![alt text](apim-aad-auth.png)
+### Sizing and Scalability
 
-### Routing Policy
+- https://docs.microsoft.com/en-us/azure/api-management/api-management-capacity
 
-[Sample Routing Policy](sample-policy.xml)
+### Observability
+
+- https://docs.microsoft.com/en-us/azure/api-management/observability
+
+#### Azure Monitor
+
+- https://docs.microsoft.com/en-us/azure/api-management/howto-use-analytics
+
+#### External Export
+
+- https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-log-event-hubs
+
+### DevOps
+
+- https://github.com/Azure/azure-api-management-devops-resource-kit
+
+### Reference
+
+- https://azure.github.io/api-management-resources/
+- https://feranto.github.io/azure-apim-lab/
