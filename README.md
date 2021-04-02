@@ -3,7 +3,12 @@
 
 ### Administration 
 
+Securing who has access to APIM:
+
 - https://docs.microsoft.com/en-us/azure/api-management/api-management-role-based-access-control
+
+Disaster Recovery:
+
 - https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-disaster-recovery-backup-restore
 
 ### Sizing and Scalability
