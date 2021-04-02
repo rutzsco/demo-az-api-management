@@ -34,7 +34,7 @@ namespace Simulation.Service
 
             string accessToken = null;
             var config = context.BuildConfiguraion();
-            if (string.IsNullOrEmpty(config["AuthTenantId"]))
+            if (!string.IsNullOrEmpty(config["AuthTenantId"]))
                 accessToken = config.GetAccessToken();
 
             var url = config["EndpointUrl"];
