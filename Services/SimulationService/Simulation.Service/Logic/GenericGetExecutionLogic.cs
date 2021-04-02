@@ -22,7 +22,9 @@ namespace Simulation.Service.Logic
         public async void Execute(string api)
         {
 
-            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+            if (!string.IsNullOrEmpty(_accessToken))
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+
             var response = await _httpClient.GetAsync(_url+"/"+ api);
             string result = response.Content.ReadAsStringAsync().Result;
         }
