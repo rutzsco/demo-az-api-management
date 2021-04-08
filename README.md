@@ -31,7 +31,7 @@ Disaster Recovery:
 
 ### DevOps
 
-- [CI/CD for API Management using Azure Resource Manager templates] https://docs.microsoft.com/en-us/azure/api-management/devops-api-development-templates
+- [CI/CD for API Management using Azure Resource Manager templates]https://docs.microsoft.com/en-us/azure/api-management/devops-api-development-templates
 - https://github.com/Azure/azure-api-management-devops-resource-kit
 
 ### Reference
