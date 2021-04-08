@@ -13,7 +13,7 @@ Disaster Recovery:
 
 ### Sizing and Scalability
 
-- https://azure.microsoft.com/pricing/details/api-management/?ref=microsoft.com&utm_source=microsoft.com&utm_medium=docs&utm_campaign=visualstudio
+- [API Management pricing](https://azure.microsoft.com/pricing/details/api-management)
 - https://docs.microsoft.com/en-us/azure/api-management/api-management-capacity
 - https://docs.microsoft.com/en-us/azure/api-management/upgrade-and-scale
 
