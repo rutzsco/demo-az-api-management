@@ -27,7 +27,7 @@ Disaster Recovery:
 
 #### External Export
 
-- https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-log-event-hubs
+- [How to log events to Azure Event Hubs in Azure API Management](https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-log-event-hubs)
 
 ### DevOps
 
