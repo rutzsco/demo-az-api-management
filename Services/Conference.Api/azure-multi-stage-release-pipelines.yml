@@ -19,7 +19,7 @@ stages:
     region: ${{ variables.region }}
     resourceGroupName: 'rutzsco-demo-api-management-ci' 
     serviceName: 'rutzsco-demo-api-management-ci'
-    AADRegistrationName: ${{ variables.AADRegistrationName }}
+    AADRegistrationName: aad
 - template: azure-release-pipelines-stage-template.yml
   parameters:
     stageName: 'QA'
@@ -28,5 +28,5 @@ stages:
     region: ${{ variables.region }}
     resourceGroupName: 'rutzsco-demo-api-management-qa' 
     serviceName: 'rutzsco-demo-api-management-qa'
-    AADRegistrationName: ${{ variables.AADRegistrationName }}
+    AADRegistrationName: aad
      
