@@ -13,7 +13,7 @@ Disaster Recovery:
 
 ### Sizing and Scalability
 
-- https://azure.microsoft.com/pricing/details/api-management/?ref=microsoft.com&utm_source=microsoft.com&utm_medium=docs&utm_campaign=visualstudio
+- [API Management pricing](https://azure.microsoft.com/pricing/details/api-management)
 - https://docs.microsoft.com/en-us/azure/api-management/api-management-capacity
 - https://docs.microsoft.com/en-us/azure/api-management/upgrade-and-scale
 
@@ -27,10 +27,11 @@ Disaster Recovery:
 
 #### External Export
 
-- https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-log-event-hubs
+- [How to log events to Azure Event Hubs in Azure API Management](https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-log-event-hubs)
 
 ### DevOps
 
+- [CI/CD for API Management using Azure Resource Manager templates](https://docs.microsoft.com/en-us/azure/api-management/devops-api-development-templates)
 - https://github.com/Azure/azure-api-management-devops-resource-kit
 
 ### Reference
