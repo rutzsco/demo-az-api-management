@@ -36,6 +36,6 @@ stages:
                 azureSubscription: '$(azureSubscription)'
                 resourceGroupName: '$(resourceGroupName)'
                 location: '$(region)'
-                csmFile: '$(Pipeline.Workspace)/build/Infrastructure/api-managment-api.json'
+                csmFile: '$(Pipeline.Workspace)/build/Infrastructure/api-management-api.json'
                 overrideParameters: '-serviceName $(apimServiceName) -authorizationServer $(AADRegistrationName)'
                 deploymentOutputs: ResourceGroupDeploymentOutputs
