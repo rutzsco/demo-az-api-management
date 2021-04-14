@@ -22,10 +22,10 @@ stages:
     publisherName: 'rutzsco'
     publisherEmail: 'scrutz@microsoft.com'
     AADRegistrationName: 'aad'
-    AADClientId: ${{ variables.AADClientId }}
-    AADClientSecret: ${{ variables.AADClientSecret }}
-    AADAuthorizationEndpoint: ${{ variables.AADAuthorizationEndpoint }}
-    AADTokenEndpoint: ${{ variables.AADTokenEndpoint }}
+    AADClientId: $(AADClientId)
+    AADClientSecret: $(AADClientSecret)
+    AADAuthorizationEndpoint: $(AADAuthorizationEndpoint)
+    AADTokenEndpoint: $(AADTokenEndpoint)
 - template: azure-release-pipelines-stage-template.yml
   parameters:
     stageName: 'QA'
@@ -37,8 +37,8 @@ stages:
     publisherName: 'rutzsco'
     publisherEmail: 'scrutz@microsoft.com'
     AADRegistrationName: 'aad'
-    AADClientId: ${{ variables.AADClientId }}
-    AADClientSecret: ${{ variables.AADClientSecret }}
-    AADAuthorizationEndpoint: ${{ variables.AADAuthorizationEndpoint }}
-    AADTokenEndpoint: ${{ variables.AADTokenEndpoint }}
+    AADClientId: $(AADClientId)
+    AADClientSecret: $(AADClientSecret)
+    AADAuthorizationEndpoint: $(AADAuthorizationEndpoint)
+    AADTokenEndpoint: $(AADTokenEndpoint)
      
