@@ -21,7 +21,7 @@ stages:
     serviceName: 'rutzsco-demo-api-management-ci'
     publisherName: 'rutzsco'
     publisherEmail: 'scrutz@microsoft.com'
-    AADRegistrationName: ${{ variables.AADRegistrationName }}
+    AADRegistrationName: 'aad'
     AADClientId: ${{ variables.AADClientId }}
     AADClientSecret: ${{ variables.AADClientSecret }}
     AADAuthorizationEndpoint: ${{ variables.AADAuthorizationEndpoint }}
@@ -36,7 +36,7 @@ stages:
     serviceName: 'rutzsco-demo-api-management-qa'
     publisherName: 'rutzsco'
     publisherEmail: 'scrutz@microsoft.com'
-    AADRegistrationName: ${{ variables.AADRegistrationName }}
+    AADRegistrationName: 'aad'
     AADClientId: ${{ variables.AADClientId }}
     AADClientSecret: ${{ variables.AADClientSecret }}
     AADAuthorizationEndpoint: ${{ variables.AADAuthorizationEndpoint }}
