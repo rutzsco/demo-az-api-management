@@ -42,7 +42,11 @@ stages:
           deploy:
   
             steps:
-            
+            - bash: |
+            # Write your commands here
+            echo ${{ parameters.serviceName }}
+          displayName: 'Bash Script'
+
             - task: AzureResourceGroupDeployment@2
               displayName: '1. API Management Core - Deploy'
               inputs:
