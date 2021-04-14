@@ -1,0 +1,44 @@
+trigger: none
+
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'demo-az-api-management - BUILD'
+  
+variables:
+  vmImageName: 'ubuntu-latest'
+  azureSubscription: 'Demo Account'
+  region: 'East US'
+
+stages:
+- template: azure-release-pipelines-stage-template.yml
+  parameters:
+    stageName: 'CI'
+    environment: 'APIM-CI'
+    azureSubscription: ${{ variables.azureSubscription }}
+    region: ${{ variables.region }}
+    resourceGroupName: 'rutzsco-demo-api-management-ci' 
+    serviceName: 'rutzsco-demo-api-management-ci'
+    publisherName: 'rutzsco'
+    publisherEmail: 'scrutz@microsoft.com'
+    AADRegistrationName: ${{ variables.AADRegistrationName }}
+    AADClientId: ${{ variables.AADClientId }}
+    AADClientSecret: ${{ variables.AADClientSecret }}
+    AADAuthorizationEndpoint: ${{ variables.AADAuthorizationEndpoint }}
+    AADTokenEndpoint: ${{ variables.AADTokenEndpoint }}
+- template: azure-release-pipelines-stage-template.yml
+  parameters:
+    stageName: 'QA'
+    environment: 'APIM-QA'
+    azureSubscription: ${{ variables.azureSubscription }}
+    region: ${{ variables.region }}
+    resourceGroupName: 'rutzsco-demo-api-management-qa' 
+    serviceName: 'rutzsco-demo-api-management-qa'
+    publisherName: 'rutzsco'
+    publisherEmail: 'scrutz@microsoft.com'
+    AADRegistrationName: ${{ variables.AADRegistrationName }}
+    AADClientId: ${{ variables.AADClientId }}
+    AADClientSecret: ${{ variables.AADClientSecret }}
+    AADAuthorizationEndpoint: ${{ variables.AADAuthorizationEndpoint }}
+    AADTokenEndpoint: ${{ variables.AADTokenEndpoint }}
+     

@@ -1,0 +1,53 @@
+parameters: 
+- name: stageName
+  default: ''
+- name: environment
+  default: ''
+- name: azureSubscription
+  default: ''
+- name: region
+  default: ''
+- name: resourceGroupName
+  default: ''
+- name: serviceName
+  default: ''
+- name: publisherEmail
+  default: ''
+- name: publisherName
+  default: ''  
+- name: AADRegistrationName
+  default: ''  
+- name: AADClientId
+  default: '' 
+- name: AADClientSecret
+  default: ''  
+- name: AADAuthorizationEndpoint
+  default: ''  
+- name: AADTokenEndpoint
+  default: ''  
+
+stages:
+  - stage: ${{ parameters.stageName }}
+    displayName: ${{ parameters.stageName }}
+
+    jobs:
+    - deployment: Deploy
+      displayName: Deploy
+      environment: ${{ parameters.environment }}
+      pool:
+        vmImage: 'ubuntu-latest'
+  
+      strategy:
+        runOnce:
+          deploy:
+  
+            steps:
+            
+            - task: AzureResourceGroupDeployment@2
+              displayName: '1. API Management Core - Deploy'
+              inputs:
+                azureSubscription: ${{ parameters.azureSubscription }}
+                resourceGroupName: ${{ parameters.resourceGroupName }}
+                location: ${{ parameters.region }}
+                csmFile: '$(Pipeline.Workspace)/build/Infrastructure/api-managment-core.json'
+                overrideParameters: '-serviceName ${{ parameters.serviceName }}  -publisherEmail ${{ parameters.publisherEmail }} -publisherName ${{ parameters.publisherName }} -AADRegistrationName ${{ parameters.AADRegistrationName }} -AADClientId ${{ parameters.AADClientId }} -AADClientSecret ${{ parameters.AADClientSecret }} -AADAuthorizationEndpoint ${{ parameters.AADAuthorizationEndpoint }} -AADTokenEndpoint ${{ parameters.AADTokenEndpoint }}'
