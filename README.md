@@ -3,7 +3,9 @@
 
 ### Administration 
 
-Securing who has access to APIM:
+SuperUsers should be given the  **API Management Service Contributor** role to manage the APIM service.
+
+#### Reference
 
 - https://docs.microsoft.com/en-us/azure/api-management/api-management-role-based-access-control
 
