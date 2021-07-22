@@ -32,49 +32,6 @@
     {
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2020-06-01-preview",
-      "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetSessions')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
-      ],
-      "properties": {
-        "displayName": "GetSessions",
-        "method": "GET",
-        "urlTemplate": "/sessions",
-        "templateParameters": [],
-        "description": "A list of sessions.  Optional parameters work as filters to reduce the listed sessions.",
-        "request": {
-          "queryParameters": [
-            {
-              "name": "speakername",
-              "type": "string",
-              "values": []
-            },
-            {
-              "name": "dayno",
-              "description": "Format - int32.",
-              "type": "integer",
-              "values": []
-            },
-            {
-              "name": "keyword",
-              "type": "string",
-              "values": []
-            }
-          ],
-          "headers": [],
-          "representations": []
-        },
-        "responses": [
-          {
-            "statusCode": 200,
-            "description": "OK"
-          }
-        ]
-      }
-    },
-    {
-      "type": "Microsoft.ApiManagement/service/apis/operations",
-      "apiVersion": "2020-06-01-preview",
       "name": "[concat(parameters('serviceName'), '/demo-conference-api/GetSessionTopics')]",
       "dependsOn": [
         "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'demo-conference-api')]"
