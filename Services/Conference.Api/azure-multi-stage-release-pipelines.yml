@@ -18,7 +18,7 @@ stages:
     azureSubscription: ${{ variables.azureSubscription }}
     region: ${{ variables.region }}
     resourceGroupName: 'rutzsco-demo-api-management-ci' 
-    serviceName: 'rutzsco-demo-api-management-ci'
+    serviceName: 'rutzsco-demo-api-management-ci-1'
     AADRegistrationName: aad
 - template: azure-release-pipelines-stage-template.yml
   parameters:
