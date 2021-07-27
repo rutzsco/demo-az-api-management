@@ -35,9 +35,9 @@ stages:
                 - task: AzureResourceGroupDeployment@2
                   displayName: '1. Create VNet'
                   inputs:
-                    azureSubscription: ${{ parameters.azureSubscription }}
-                    resourceGroupName: ${{ parameters.resourceGroupName }}
-                    location: ${{ parameters.region }}
+                    azureSubscription: "$(azureSubscription)"
+                    resourceGroupName: "$(resourceGroupName)"
+                    location: "$(region)"
                     csmFile: '$(Pipeline.Workspace)/build/Infrastructure/vnet.json'
                     overrideParameters: '-vnetName ${{ parameters.serviceName }}'
                     deploymentOutputs: ResourceGroupDeploymentOutputs
@@ -48,7 +48,7 @@ stages:
                     azureResourceManagerConnection: "Demo Account"
                     subscriptionId: "$(azureSubscription)"
                     resourceGroupName: "$(resourceGroupName)"
-                    location: "East US"
+                    location: "$(region)"
                     csmFile: "$(Pipeline.Workspace)/build/Infrastructure/api-management-core.json"
                     overrideParameters: "-serviceName $(serviceName)-internal -publisherEmail $(publisherEmail) -publisherName $(publisherName) -virtualNetworkType Internal -virtualNetworkSubnetId $(virtualNetworkSubnetId)"
                     deploymentOutputs: "internalAPIM"
