@@ -1,0 +1,103 @@
+trigger: none
+
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'demo-az-api-management-private - BUILD'
+
+variables:
+  vmImageName: "ubuntu-latest"
+  azureSubscription: 'Demo Account'
+  region: 'East US'
+  serviceName: 'rutzsco-demo-api-management-internal'
+  vaultName: "demo-api-management"
+  publisherName: "rutzsco"
+  publisherEmail: "scrutz@microsoft.com"
+  resourceGroupName: "rutzsco-demo-api-management"
+  virtualNetworkName: "demo-api-management-network"
+  virtualNetworkSubnetId: "/subscriptions/ID/resourceGroups/RG/providers/Microsoft.Network/virtualNetworks/VNET/subnets/SNET"
+
+stages:
+  - stage: CI
+    displayName: CI stage
+
+    jobs:
+      - deployment: Deploy
+        displayName: Deploy
+        environment: "CI"
+        pool:
+          vmImage: $(vmImageName)
+
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureResourceGroupDeployment@2
+                  displayName: '1. Create VNet'
+                  inputs:
+                    azureSubscription: ${{ parameters.azureSubscription }}
+                    resourceGroupName: ${{ parameters.resourceGroupName }}
+                    location: ${{ parameters.region }}
+                    csmFile: '$(Pipeline.Workspace)/build/Infrastructure/vnet.json'
+                    overrideParameters: '-vnetName ${{ parameters.serviceName }}'
+                    deploymentOutputs: ResourceGroupDeploymentOutputs
+
+                - task: AzureResourceManagerTemplateDeployment@3
+                  displayName: "1. API Management Core - Internal"
+                  inputs:
+                    azureResourceManagerConnection: "Demo Account"
+                    subscriptionId: "$(azureSubscription)"
+                    resourceGroupName: "$(resourceGroupName)"
+                    location: "East US"
+                    csmFile: "$(Pipeline.Workspace)/build/Infrastructure/api-management-core.json"
+                    overrideParameters: "-serviceName $(serviceName)-internal -publisherEmail $(publisherEmail) -publisherName $(publisherName) -virtualNetworkType Internal -virtualNetworkSubnetId $(virtualNetworkSubnetId)"
+                    deploymentOutputs: "internalAPIM"
+
+                - task: AzurePowerShell@5
+                  displayName: "2. Retrieve existing KeyVault Access Policies"
+                  env:
+                    keyVaultName: $(vaultName)
+                  inputs:
+                    azurePowerShellVersion: 'LatestVersion'
+                    azureSubscription: 'Demo Account'
+                    pwsh: true
+                    ScriptType: 'InlineScript'
+                    Inline: |
+                      $keyVaultAccessPolicies = (Get-AzKeyVault -VaultName $env:keyVaultName).accessPolicies
+                      $armAccessPolicies = @()
+                      
+                      if($keyVaultAccessPolicies)
+                      {
+                         foreach($keyVaultAccessPolicy in $keyVaultAccessPolicies)
+                         {
+                            $armAccessPolicy = [pscustomobject]@{
+                               tenantId = $keyVaultAccessPolicy.TenantId
+                               objectId = $keyVaultAccessPolicy.ObjectId
+                            }
+
+                            $armAccessPolicyPermissions = [pscustomobject]@{
+                               keys = $keyVaultAccessPolicy.PermissionsToKeys
+                               secrets = $keyVaultAccessPolicy.PermissionsToSecrets
+                               certificates = $keyVaultAccessPolicy.PermissionsToCertificates
+                               storage = $keyVaultAccessPolicy.PermissionsToStorage
+                           }
+
+                           $armAccessPolicy | Add-Member -MemberType NoteProperty -Name permissions -Value $armAccessPolicyPermissions
+                           $armAccessPolicies += $armAccessPolicy
+                         }
+                      }
+                      
+                      $armAccessPoliciesParameter = [pscustomobject]@{ list = $armAccessPolicies }
+                      $armAccessPoliciesParameter = $armAccessPoliciesParameter | ConvertTo-Json -Depth 5 -Compress
+                      
+                      Write-Host ("##vso[task.setvariable variable=Infra.KeyVault.AccessPolicies;]$armAccessPoliciesParameter")
+                  
+                - task: AzureResourceManagerTemplateDeployment@3
+                  displayName: "3. Azure KeyVault"
+                  inputs:
+                    azureResourceManagerConnection: "Demo Account"
+                    subscriptionId: "$(azureSubscription)"
+                    resourceGroupName: "$(resourceGroupName)"
+                    location: "East US"
+                    csmFile: "$(Pipeline.Workspace)/build/Infrastructure/key-vault.json"
+                    overrideParameters: "-vaultName $(vaultName) -accessPolicies $(Infra.KeyVault.AccessPolicies)"
