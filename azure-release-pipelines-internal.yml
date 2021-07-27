@@ -39,7 +39,7 @@ stages:
                     resourceGroupName: "$(resourceGroupName)"
                     location: "$(region)"
                     csmFile: '$(Pipeline.Workspace)/build/Infrastructure/vnet.json'
-                    overrideParameters: '-vnetName ${{ parameters.serviceName }}'
+                    overrideParameters: '-vnetName $(serviceName)'
                     deploymentOutputs: ResourceGroupDeploymentOutputs
 
                 - task: AzureResourceManagerTemplateDeployment@3
