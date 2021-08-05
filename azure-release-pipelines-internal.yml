@@ -16,7 +16,7 @@ variables:
   publisherEmail: "scrutz@microsoft.com"
   resourceGroupName: "rutzsco-demo-api-management"
   virtualNetworkName: "demo-api-management-network"
-  virtualNetworkSubnetId: "/subscriptions/rutzsco-demo-api-management-internal/resourceGroups/rutzsco-demo-api-management/providers/Microsoft.Network/virtualNetworks/VNET/subnets/Subnet1"
+  virtualNetworkSubnetId: "/subscriptions/164a84cf-b099-4567-a527-c2a8143a32c7/resourceGroups/rutzsco-demo-api-management/providers/Microsoft.Network/virtualNetworks/VNET/subnets/Subnet1"
 
 stages:
   - stage: CI
