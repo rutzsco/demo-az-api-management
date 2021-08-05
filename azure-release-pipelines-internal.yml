@@ -50,7 +50,7 @@ stages:
                     subscriptionId: "$(azureSubscriptionId)"
                     resourceGroupName: "$(resourceGroupName)"
                     location: "$(region)"
-                    csmFile: "$(Pipeline.Workspace)/build/Infrastructure/api-management-core.json"
+                    csmFile: "$(Pipeline.Workspace)/build/Infrastructure/api-management-internal-core.json"
                     overrideParameters: "-serviceName $(serviceName)-internal -publisherEmail $(publisherEmail) -publisherName $(publisherName) -virtualNetworkType Internal -virtualNetworkSubnetId $(virtualNetworkSubnetId)"
                     deploymentOutputs: "internalAPIM"
 
