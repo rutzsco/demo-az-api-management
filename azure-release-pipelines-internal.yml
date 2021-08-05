@@ -7,7 +7,8 @@ resources:
 
 variables:
   vmImageName: "ubuntu-latest"
-  azureSubscription: 'Demo Account'
+  azureResourceManagerConnection: 'Demo Account'
+  azureSubscriptionId: '164a84cf-b099-4567-a527-c2a8143a32c7'
   region: 'East US'
   serviceName: 'rutzsco-demo-api-management-internal'
   vaultName: "demo-api-management"
@@ -35,7 +36,7 @@ stages:
                 - task: AzureResourceGroupDeployment@2
                   displayName: '1. Create VNet'
                   inputs:
-                    azureSubscription: "$(azureSubscription)"
+                    azureSubscription: "$(azureResourceManagerConnection)"
                     resourceGroupName: "$(resourceGroupName)"
                     location: "$(region)"
                     csmFile: '$(Pipeline.Workspace)/build/Infrastructure/vnet.json'
@@ -43,10 +44,10 @@ stages:
                     deploymentOutputs: ResourceGroupDeploymentOutputs
 
                 - task: AzureResourceManagerTemplateDeployment@3
-                  displayName: "1. API Management Core - Internal"
+                  displayName: "2. API Management Core - Internal"
                   inputs:
-                    azureResourceManagerConnection: "Demo Account"
-                    subscriptionId: "$(azureSubscription)"
+                    azureResourceManagerConnection: "$(azureResourceManagerConnection)"
+                    subscriptionId: "$(azureSubscriptionId)"
                     resourceGroupName: "$(resourceGroupName)"
                     location: "$(region)"
                     csmFile: "$(Pipeline.Workspace)/build/Infrastructure/api-management-core.json"
@@ -54,7 +55,7 @@ stages:
                     deploymentOutputs: "internalAPIM"
 
                 - task: AzurePowerShell@5
-                  displayName: "2. Retrieve existing KeyVault Access Policies"
+                  displayName: "3. Retrieve existing KeyVault Access Policies"
                   env:
                     keyVaultName: $(vaultName)
                   inputs:
@@ -93,11 +94,11 @@ stages:
                       Write-Host ("##vso[task.setvariable variable=Infra.KeyVault.AccessPolicies;]$armAccessPoliciesParameter")
                   
                 - task: AzureResourceManagerTemplateDeployment@3
-                  displayName: "3. Azure KeyVault"
+                  displayName: "4. Azure KeyVault"
                   inputs:
-                    azureResourceManagerConnection: "Demo Account"
-                    subscriptionId: "$(azureSubscription)"
+                    azureResourceManagerConnection: "$(azureResourceManagerConnection)"
+                    subscriptionId: "$(azureSubscriptionId)"
                     resourceGroupName: "$(resourceGroupName)"
-                    location: "East US"
+                    location: "$(region)"
                     csmFile: "$(Pipeline.Workspace)/build/Infrastructure/key-vault.json"
                     overrideParameters: "-vaultName $(vaultName) -accessPolicies $(Infra.KeyVault.AccessPolicies)"
