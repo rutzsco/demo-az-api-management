@@ -9,9 +9,8 @@ variables:
   vmImageName: 'vs2017-win2016'
   azureSubscription: 'Demo Account'
   region: 'East US'
-  storageAccountName: 'azfuncapimiaci'
   resourceGroupName: 'rutzsco-demo-api-management'  
-  apimServiceName: 'rutzsco-demo-api-management'
+  apimServiceName: 'rutzsco-demo-api-management-internal-internal'
   AADRegistrationName: 'msft-aad'  
 stages:
  - stage: CI
