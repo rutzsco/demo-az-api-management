@@ -18,7 +18,7 @@ stages:
     azureSubscription: ${{ variables.azureSubscription }}
     region: ${{ variables.region }}
     resourceGroupName: 'rutzsco-demo-api-management-ci' 
-    serviceName: 'rutzsco-demo-api-management-ci-1'
+    serviceName: 'rutzsco-demo-api-management-ci-2'
     AADRegistrationName: aad
 - template: azure-release-pipelines-stage-template.yml
   parameters:
@@ -26,7 +26,7 @@ stages:
     environment: 'APIM-QA'
     azureSubscription: ${{ variables.azureSubscription }}
     region: ${{ variables.region }}
-    resourceGroupName: 'rutzsco-demo-api-management-qa' 
+    resourceGroupName: 'rutzsco-demo-api-management-qa-2' 
     serviceName: 'rutzsco-demo-api-management-qa'
     AADRegistrationName: aad
      
