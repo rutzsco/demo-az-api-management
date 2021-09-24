@@ -5,7 +5,7 @@ trigger:
     - main
   paths:
     include:
-    - Services/Ingest.Api/*
+    - Services/Entitlements.Api/*
 
 pool:
   vmImage: 'ubuntu-latest'
