@@ -3,16 +3,15 @@ trigger: none
 resources:
   pipelines:
   - pipeline: build
-    source: 'demo-az-apim - ingest api - BUILD'
+    source: 'demo-az-api-management - entitlements api - BUILD'
   
 variables:
   vmImageName: 'vs2017-win2016'
   azureSubscription: 'Demo Account'
   region: 'East US'
-  app-name: 'rutzsco-demo-api-management-telemetry-api'
-  app-name2: 'rutzsco-demo-api-management-telemetry-api2'
-  storageAccountName: 'azfuncapimiart'
-  resourceGroupName: 'rutzsco-demo-api-management-routing' 
+  app-name: 'rutzsco-demo-api-management-entitlement-api'
+  storageAccountName: 'azfuncapientci'
+  resourceGroupName: 'rutzsco-demo-api-management'  
 stages:
  - stage: CI
    displayName: CI stage 
@@ -46,15 +45,5 @@ stages:
                 azureSubscription: '$(azureSubscription)'
                 appType: functionApp
                 appName: $(app-name)
-                package: '$(Pipeline.Workspace)/build/App/Ingest.Api.zip'
-                AppSettings: '-ProcessorName Common'
-
-            - task: AzureResourceGroupDeployment@2
-              displayName: '3. Deploy API Scheman to APIM'
-              inputs:
-                azureSubscription: '$(azureSubscription)'
-                resourceGroupName: '$(resourceGroupName)'
-                location: '$(region)'
-                csmFile: '$(Pipeline.Workspace)/build/Infrastructure/api-managment-api.json'
-                overrideParameters: '-appName $(app-name2) -storageAccountName $(storageAccountName)'
-                deploymentOutputs: ResourceGroupDeploymentOutputs
+                package: '$(Pipeline.Workspace)/build/App/Entitlements.Api.zip'
+                AppSettings: ''
