@@ -58,6 +58,7 @@ The configuration of APIM can be managed via IaC practices and deployed via CD p
 - https://techcommunity.microsoft.com/t5/azure-architecture-blog/adopting-a-devops-process-in-azure-api-management-using-azure/ba-p/1519141
 - [CI/CD for API Management using Azure Resource Manager templates](https://docs.microsoft.com/en-us/azure/api-management/devops-api-development-templates)
 - https://github.com/Azure/azure-api-management-devops-resource-kit
+- https://github.com/fortunkam/apim-devops-demos
 
 ### Reference
 
