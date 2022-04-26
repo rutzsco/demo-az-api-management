@@ -9,7 +9,7 @@ variables:
   azureServiceConnection: 'Demo Account'
   resourceGroupName: 'rutzsco-demoapi-eastus'
   location: 'eastus'
-  templateFile: 'Infrastructure/main.bicep'
+  templateFile: 'Infrastructure/Private/main.bicep'
 
 pool:
   vmImage: $(vmImageName)
