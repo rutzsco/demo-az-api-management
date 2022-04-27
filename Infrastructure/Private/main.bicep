@@ -13,7 +13,7 @@ var sqlServerResourceName = '${environmentName}sql-${environmentSuffix}'
 module vnet 'vnet.bicep' = {
   name: 'vnet'
   params: {
-    environmentSuffix: environmentSuffix,
+    environmentSuffix: environmentSuffix
     environmentName: environmentName
   }
 }
