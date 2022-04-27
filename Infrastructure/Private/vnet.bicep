@@ -9,7 +9,7 @@ var vnetName = 'vnet-${environmentName}-${region}-${environmentSuffix}'
 
 resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = {
   name: vnetName
-  location: resourceGroup().location
+  location: region
   tags: {
     Owner: owner
     CostCenter: costCenter

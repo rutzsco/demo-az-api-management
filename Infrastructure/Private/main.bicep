@@ -5,6 +5,9 @@ param environmentSuffix string = 'apidemo'
 @description('The environment prefix to append to resource names.')
 param environmentName string = 'apidemo'
 
+@description('The environment region location.')
+param location string = 'eastus'
+
 // Resource names
 var ResourceName = '${environmentName}acr${environmentSuffix}'
 var sqlServerResourceName = '${environmentName}sql-${environmentSuffix}'
@@ -15,5 +18,6 @@ module vnet 'vnet.bicep' = {
   params: {
     environmentSuffix: environmentSuffix
     environmentName: environmentName
+    region: location
   }
 }
