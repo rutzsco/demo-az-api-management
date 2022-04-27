@@ -8,9 +8,11 @@ param environmentName string = 'apidemo'
 @description('The environment region location.')
 param location string = 'eastus'
 
+@description('The environment region location.')
+param apimPublisherEmail string = 'scrutz@microsoft.com'
+
 // Resource names
-var ResourceName = '${environmentName}acr${environmentSuffix}'
-var sqlServerResourceName = '${environmentName}sql-${environmentSuffix}'
+var apimResourceName = '${environmentName}-apim-${environmentSuffix}'
 
 // VNET
 module vnet 'vnet.bicep' = {
@@ -19,5 +21,18 @@ module vnet 'vnet.bicep' = {
     environmentSuffix: environmentSuffix
     environmentName: environmentName
     region: location
+  }
+}
+
+// APIM
+var apimSubnetId='${vnet.outputs.vnet_id}/subnets/subnet001'
+module apiManagement 'apim.bicep' = {
+  name: 'apim'
+  params: {
+    apimPublisherName: 'rutzsco'
+    apimName: apimResourceName
+    apimPublisherEmail: apimPublisherEmail
+    apimSubnetId: apimSubnetId
+    sku: 'developer'
   }
 }
