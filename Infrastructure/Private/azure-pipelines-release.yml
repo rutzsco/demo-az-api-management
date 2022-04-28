@@ -10,6 +10,8 @@ variables:
   resourceGroupName: 'rutzsco-demo-api-eastus'
   location: 'eastus'
   templateFile: 'Infrastructure/Private/main.bicep'
+  environmentName: 'apim-demo'
+  environmentSuffix: '001'
 
 pool:
   vmImage: $(vmImageName)
@@ -22,6 +24,6 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az group create --name $(resourceGroupName) --location $(location)  
-      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters location=$(location)
+      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters location=$(location) environmentName=$(environmentName) environmentSuffix=$(environmentSuffix)
       
       
