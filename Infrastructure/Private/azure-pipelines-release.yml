@@ -6,8 +6,8 @@ name: Deploy Network
 variables:
   vmImageName: 'ubuntu-latest'
 
-  azureServiceConnection: 'Demo Account'
-  resourceGroupName: 'rutzsco-demoapi-eastus'
+  azureServiceConnection: 'RUTZSCODEV ACCOUNT'
+  resourceGroupName: 'rutzsco-demo-api-eastus'
   location: 'eastus'
   templateFile: 'Infrastructure/Private/main.bicep'
 
