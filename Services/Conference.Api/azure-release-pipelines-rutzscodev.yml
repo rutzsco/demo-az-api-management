@@ -17,7 +17,7 @@ stages:
     environment: 'APIM-CI'
     azureSubscription: ${{ variables.azureSubscription }}
     region: ${{ variables.region }}
-    resourceGroupName: 'rutzsco-demo-api-management-ci' 
-    serviceName: 'rutzsco-demo-api-management-ci-3'
+    resourceGroupName: 'rutzsco-demo-api-eastus' 
+    serviceName: 'apim-demo-apim-001'
     AADRegistrationName: aad
      
