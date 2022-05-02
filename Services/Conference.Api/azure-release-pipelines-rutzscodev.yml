@@ -1,0 +1,23 @@
+trigger: none
+
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'demo-az-apim - conference api - BUILD'
+  
+variables:
+  vmImageName: 'ubuntu-latest'
+  azureSubscription: 'RUTZSCODEV ACCOUNT'
+  region: 'East US'
+
+stages:
+- template: azure-release-pipelines-stage-template.yml
+  parameters:
+    stageName: 'CI'
+    environment: 'APIM-CI'
+    azureSubscription: ${{ variables.azureSubscription }}
+    region: ${{ variables.region }}
+    resourceGroupName: 'rutzsco-demo-api-management-ci' 
+    serviceName: 'rutzsco-demo-api-management-ci-3'
+    AADRegistrationName: aad
+     
