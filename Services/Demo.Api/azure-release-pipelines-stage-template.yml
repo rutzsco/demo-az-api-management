@@ -38,4 +38,4 @@ stages:
                 resourceGroupName: ${{ parameters.resourceGroupName }}
                 location: ${{ parameters.region }}
                 csmFile: '$(Pipeline.Workspace)/build/Infrastructure/api-management-api.json'
-                overrideParameters: '-serviceName ${{ parameters.serviceName }} -authorizationServer ${{ parameters.AADRegistrationName }}'
+                overrideParameters: '-apimServiceName ${{ parameters.serviceName }}'
