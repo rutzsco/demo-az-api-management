@@ -1,0 +1,19 @@
+@baseUrl =<APIM_URL>
+
+### Get AAD Token Request
+# @name aadTokenRequest
+POST https://login.microsoftonline.com/<AAD_TENANT>/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=<AAD_CLIENTID_TENANT>
+&grant_type=client_credentials
+&client_secret=<AAD_TENANT>
+&scope=api://AAD_API_CLIENT_ID/.default
+
+
+### Demo - Account  
+GET  {{baseUrl}}/demo/account
+content-type: application/json
+
+
+

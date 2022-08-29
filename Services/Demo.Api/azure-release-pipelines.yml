@@ -20,4 +20,3 @@ stages:
     resourceGroupName: 'rutzsco-demo-api-management-ci' 
     serviceName: 'rutzsco-demo-api-management-ci-001'
     AADRegistrationName: aad-msft
-     

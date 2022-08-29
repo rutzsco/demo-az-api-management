@@ -352,3 +352,4 @@ Services/Ingest.Api/Ingest.Api/local.settings.json
 Services/SimulationService/Simulation.Service/local.settings.json
 Services/SimulationService/Simulation.Service/Properties/serviceDependencies.local.json
 Services/Ingest.Api/Ingest.Api/Properties/serviceDependencies.local.json
+Services/Demo.Api/demo-api-tests.http
