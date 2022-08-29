@@ -3,7 +3,7 @@ trigger: none
 resources:
   pipelines:
   - pipeline: build
-    source: 'demo-az-apim - core - BUILD'
+    source: 'demo-az-apim-basic - core - BUILD'
   
 variables:
   vmImageName: 'ubuntu-latest'
