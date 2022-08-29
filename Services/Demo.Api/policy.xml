@@ -1,0 +1,60 @@
+<policies>
+    <inbound>
+        <base />
+        <validate-jwt header-name="Authorization" failed-validation-httpcode="401" failed-validation-error-message="Unauthorized. Access token is missing or invalid.">
+            <openid-config url="https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/.well-known/openid-configuration" />
+            <required-claims>
+                <claim name="aud" match="any">
+                    <value>api://0c9aa582-a623-4e1e-8dc0-b5aeee41b8d7</value>
+                </claim>
+                <claim name="appid" match="any">
+                    <value>effeaebb-dfcb-468b-a321-52f919f46cdf</value>
+                </claim>
+            </required-claims>
+        </validate-jwt>
+        <rate-limit-by-key calls="25" renewal-period="60" counter-key="@(context.Request.IpAddress)" />
+        <ip-filter action="forbid">
+            <address>40.86.112.149</address>
+        </ip-filter>
+        <set-variable name="UserRoles" value="@(context.Request.Headers["Authorization"].First().Split(' ')[1].AsJwt()?.Claims["aud"].FirstOrDefault())" />
+        <set-variable name="UserName" value="@(context.Request.Headers["Authorization"].First().Split(' ')[1].AsJwt()?.Claims["appid"].FirstOrDefault())" />
+        <rate-limit-by-key calls="5" renewal-period="60" counter-key="@(context.Variables.GetValueOrDefault<string>("UserName"))" />
+        <emit-metric name="api-ops-request" value="1" namespace="api-ops-metrics">
+            <dimension name="UserID" value="@(context.Variables.GetValueOrDefault<string>("UserName"))" />
+            <dimension name="ClientIP" value="@(context.Request.IpAddress)" />
+            <dimension name="UserRoles" value="@(context.Variables.GetValueOrDefault<string>("UserRoles"))" />
+            <dimension name="OperationName" value="@(context.Operation.Name)" />
+            <dimension name="OperationMethod" value="@(context.Operation.Method)" />
+        </emit-metric>
+        <choose>
+            <when condition="@(context.Variables.GetValueOrDefault<string>("UserRoles").Equals("api://0c9aa582-a623-4e1e-8dc0-b5aeee41b8d7"))">
+                <return-response>
+                    <set-status code="200" reason="OK" />
+                    <set-header name="Content-Type" exists-action="override">
+                        <value>application/json</value>
+                    </set-header>
+                    <set-body template="liquid">{
+                 "success": true,
+                 "ip-address": "{{context.Request.IpAddress}}",
+                 "user-roles": "{{context.Variables["UserRoles"]}}",
+                 "user-name": "{{context.Variables["UserName"]}}"
+                 }</set-body>
+                </return-response>
+            </when>
+            <otherwise>
+                <return-response>
+                    <set-status code="403" reason="Forbidden" />
+                </return-response>
+            </otherwise>
+        </choose>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>

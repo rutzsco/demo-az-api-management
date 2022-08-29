@@ -1,0 +1,22 @@
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - Services/Demo.Api/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  rootDirectory: 'Services/Demo.Api'
+
+steps:
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(rootDirectory)/Infrastructure'
+    artifact: 'Infrastructure'
+    publishLocation: 'pipeline'

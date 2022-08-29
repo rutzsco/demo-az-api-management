@@ -1,0 +1,41 @@
+parameters: 
+- name: stageName
+  default: ''
+- name: environment
+  default: ''
+- name: azureSubscription
+  default: ''
+- name: region
+  default: ''
+- name: resourceGroupName
+  default: ''
+- name: serviceName
+  default: ''
+- name: AADRegistrationName
+  default: ''  
+
+stages:
+  - stage: ${{ parameters.stageName }}
+    displayName: ${{ parameters.stageName }}
+
+    jobs:
+    - deployment: Deploy
+      displayName: Deploy
+      environment: ${{ parameters.environment }}
+      pool:
+        vmImage: 'ubuntu-latest'
+  
+      strategy:
+        runOnce:
+          deploy:
+  
+            steps:
+            
+            - task: AzureResourceGroupDeployment@2
+              displayName: '1. API Management Core - Deploy'
+              inputs:
+                azureSubscription: ${{ parameters.azureSubscription }}
+                resourceGroupName: ${{ parameters.resourceGroupName }}
+                location: ${{ parameters.region }}
+                csmFile: '$(Pipeline.Workspace)/build/Infrastructure/api-management-api.json'
+                overrideParameters: '-serviceName ${{ parameters.serviceName }} -authorizationServer ${{ parameters.AADRegistrationName }}'
