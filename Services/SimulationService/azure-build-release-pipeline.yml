@@ -8,7 +8,7 @@ trigger:
 
 variables:
   azureSubscription: 'Demo Account'
-  vmImageName: 'windows-latest'
+  vmImageName: 'ubuntu-latest'
   workingDirectory: '$(System.DefaultWorkingDirectory)/Services/SimulationService'
   region: 'eastus'
   app-name: 'demo-simulation-service'
