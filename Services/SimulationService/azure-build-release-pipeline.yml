@@ -1,0 +1,90 @@
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - Services/SimulationService/*
+
+variables:
+  azureSubscription: 'Demo Account'
+  vmImageName: 'windows-2019'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/Services/SimulationService'
+  region: 'eastus'
+  app-name: 'demo-simulation-service'
+  storageAccountName: 'azfuncapimssci'
+  resourceGroupName: 'rutzsco-demo-api-management-ci' 
+  templateFile: $(Pipeline.Workspace)/build/Infrastructure/main.bicep
+
+stages:
+- stage: Build
+  displayName: Build stage
+
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: Build
+      inputs:
+        command: 'build'
+        projects: |
+          $(workingDirectory)/*.csproj
+        arguments: --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive files'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/publish_output'
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/App.zip
+        replaceExistingArchive: true
+
+    - publish: $(Build.ArtifactStagingDirectory)/App.zip
+      artifact: app
+
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(workingDirectory)/Infrastructure'
+        artifact: 'Infrastructure'
+        publishLocation: 'pipeline'
+
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  condition: succeeded()
+
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    environment: 'development'
+    pool:
+      vmImage: $(vmImageName)
+
+    strategy:
+      runOnce:
+        deploy:
+
+          steps:
+            - task: AzureCLI@2
+              displayName: '1. Create Function Infrastructure'
+              inputs:
+                azureSubscription: $(azureSubscription)
+                scriptType: bash
+                scriptLocation: inlineScript
+                inlineScript: |
+                  az group create --name $(resourceGroupName) --location $(region)
+                  az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters functionAppName=$(app-name) functionAppStorageAccountName=$(storageAccountName) > outputs.json
+
+            - task: AzureFunctionApp@1
+              displayName: '2. Azure functions app deploy'
+              inputs:
+                azureSubscription: '$(azureSubscription)'
+                appType: functionApp
+                appName: $(app-name)
+                package: '$(Pipeline.Workspace)/build/App/Simulation.Service.zip'
+                AppSettings: '-AuthTenantId $(AuthTenantId) -AuthClientId $(AuthClientId) -AuthClientSecret $(AuthClientSecret) -EndpointUrl $(EndpointUrl) -AuthScope $(AuthScope) -Ocp-Apim-Subscription-Key $(Ocp-Apim-Subscription-Key)'

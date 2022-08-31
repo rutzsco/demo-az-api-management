@@ -6,12 +6,13 @@ resources:
     source: 'demo-az-api-management - simulation service - BUILD'
   
 variables:
-  vmImageName: 'vs2017-win2016'
+  vmImageName: 'windows-latest'
   azureSubscription: 'Demo Account'
-  region: 'East US'
-  app-name: 'demo-api-managment-simulation-service'
+  region: 'eastus'
+  app-name: 'demo-simulation-service'
   storageAccountName: 'azfuncapimssci'
-  resourceGroupName: 'rutzsco-demo-api-management'  
+  resourceGroupName: 'rutzsco-demo-api-management-ci' 
+  templateFile: $(Pipeline.Workspace)/build/Infrastructure/main.bicep
 
 stages:
  - stage: CI
@@ -29,16 +30,15 @@ stages:
           deploy:
   
             steps:
-           
-            - task: AzureResourceGroupDeployment@2
+            - task: AzureCLI@2
               displayName: '1. Create Function Infrastructure'
               inputs:
-                azureSubscription: '$(azureSubscription)'
-                resourceGroupName: '$(resourceGroupName)'
-                location: '$(region)'
-                csmFile: '$(Pipeline.Workspace)/build/Infrastructure/function-app-consumption.json'
-                overrideParameters: '-appName $(app-name) -storageAccountName $(storageAccountName)'
-                deploymentOutputs: ResourceGroupDeploymentOutputs
+                azureSubscription: $(azureSubscription)
+                scriptType: bash
+                scriptLocation: inlineScript
+                inlineScript: |
+                  az group create --name $(resourceGroupName) --location $(region)
+                  az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters functionAppName=$(app-name) functionAppStorageAccountName=$(storageAccountName) > outputs.json
 
             - task: AzureFunctionApp@1
               displayName: '2. Azure functions app deploy'
