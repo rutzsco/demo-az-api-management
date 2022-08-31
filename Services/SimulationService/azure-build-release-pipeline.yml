@@ -45,7 +45,7 @@ stages:
         replaceExistingArchive: true
 
     - publish: $(Build.ArtifactStagingDirectory)/App.zip
-      artifact: app
+      artifact: App
 
     - task: PublishPipelineArtifact@1
       inputs:
