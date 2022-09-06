@@ -32,13 +32,13 @@ namespace Simulation.Service
         {
             log.LogInformation("In Timer Function");
 
-            string accessToken = null;
+            //string accessToken = null;
             var config = context.BuildConfiguraion();
-            if (!string.IsNullOrEmpty(config["AuthTenantId"]))
-                accessToken = config.GetAccessToken();
+            //if (!string.IsNullOrEmpty(config["AuthTenantId"]))
+            //    accessToken = config.GetAccessToken();
 
             var url = config["EndpointUrl"];
-            var logic = new GenericGetExecutionLogic(url, accessToken, _client, log);
+            var logic = new GenericGetExecutionLogic(url, null, _client, log);
 
             logic.Execute("sessions");
             logic.Execute("speakers");

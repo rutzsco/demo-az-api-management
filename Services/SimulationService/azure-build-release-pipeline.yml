@@ -14,7 +14,9 @@ variables:
   app-name: 'demo-simulation-service'
   storageAccountName: 'azfuncapimssci'
   resourceGroupName: 'rutzsco-demo-api-management-ci' 
-  templateFile: $(Pipeline.Workspace)/build/Infrastructure/main.bicep
+  templateFile: $(Pipeline.Workspace)/Infrastructure/main.bicep
+  EndpointUrl: 'TBD'
+    EndpointUrl: 'TBD'
 
 stages:
 - stage: Build
@@ -86,5 +88,5 @@ stages:
                 azureSubscription: '$(azureSubscription)'
                 appType: functionApp
                 appName: $(app-name)
-                package: '$(Pipeline.Workspace)/build/App/Simulation.Service.zip'
-                AppSettings: '-AuthTenantId $(AuthTenantId) -AuthClientId $(AuthClientId) -AuthClientSecret $(AuthClientSecret) -EndpointUrl $(EndpointUrl) -AuthScope $(AuthScope) -Ocp-Apim-Subscription-Key $(Ocp-Apim-Subscription-Key)'
+                package: '$(Pipeline.Workspace)/App/Simulation.Service.zip'
+                AppSettings: '-EndpointUrl $(EndpointUrl) -Ocp-Apim-Subscription-Key $(Ocp-Apim-Subscription-Key)'

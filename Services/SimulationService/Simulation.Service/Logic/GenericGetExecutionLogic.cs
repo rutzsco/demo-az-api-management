@@ -18,7 +18,7 @@ namespace Simulation.Service.Logic
         public GenericGetExecutionLogic(string url, string accessToken, HttpClient httpClient, ILogger logger)
         {
             _url = url ?? throw new ArgumentNullException(nameof(url));
-            _accessToken = accessToken ?? throw new ArgumentNullException(nameof(accessToken));
+            _accessToken = accessToken;
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
