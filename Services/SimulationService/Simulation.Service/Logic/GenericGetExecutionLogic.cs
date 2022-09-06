@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Simulation.Service.Logic
 {
@@ -23,13 +24,13 @@ namespace Simulation.Service.Logic
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async void Execute(string api)
+        public async Task Execute(string api)
         {
             if (!string.IsNullOrEmpty(_accessToken))
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
 
             var response = await _httpClient.GetAsync(_url+"/"+ api);
-            string result = response.Content.ReadAsStringAsync().Result;
+            string result = await response.Content.ReadAsStringAsync();
             _logger.LogInformation($"API call result - Api:{api} Status: {response.StatusCode}");
          }
     }

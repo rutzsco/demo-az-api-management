@@ -15,7 +15,8 @@ variables:
   storageAccountName: 'azfuncapimssci'
   resourceGroupName: 'rutzsco-demo-api-management-ci' 
   templateFile: $(Pipeline.Workspace)/Infrastructure/main.bicep
-  EndpointUrl: 'TBD'
+  endpointUrl: 'https://rutzsco-demo-api-management-ci-001.azure-api.net/conference'
+  Ocp-Apim-Subscription-Key: 'TBD'
 
 stages:
 - stage: Build
@@ -88,4 +89,4 @@ stages:
                 appType: functionApp
                 appName: $(app-name)
                 package: '$(Pipeline.Workspace)/App/App.zip'
-                AppSettings: '-EndpointUrl $(EndpointUrl) -Ocp-Apim-Subscription-Key $(Ocp-Apim-Subscription-Key)'
+                AppSettings: '-EndpointUrl $(endpointUrl) -Ocp-Apim-Subscription-Key $(Ocp-Apim-Subscription-Key)'
