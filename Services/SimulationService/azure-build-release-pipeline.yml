@@ -16,7 +16,6 @@ variables:
   resourceGroupName: 'rutzsco-demo-api-management-ci' 
   templateFile: $(Pipeline.Workspace)/Infrastructure/main.bicep
   endpointUrl: 'https://rutzsco-demo-api-management-ci-001.azure-api.net/conference'
-  SubscriptionKey: 'TBD'
 
 stages:
 - stage: Build
