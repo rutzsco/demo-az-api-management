@@ -38,7 +38,8 @@ namespace Simulation.Service
                 accessToken = config.GetAccessToken();
 
             var url = config["EndpointUrl"];
-            var logic = new GenericGetExecutionLogic(url, accessToken, _client, log);
+            var key = config["SubscriptionKey"];
+            var logic = new GenericGetExecutionLogic(url, accessToken, key, _client, log);
 
             await logic.Execute("topics");
             await logic.Execute("speakers");
