@@ -16,7 +16,6 @@ variables:
   resourceGroupName: 'rutzsco-demo-api-management-ci' 
   templateFile: $(Pipeline.Workspace)/Infrastructure/main.bicep
   EndpointUrl: 'TBD'
-    EndpointUrl: 'TBD'
 
 stages:
 - stage: Build
