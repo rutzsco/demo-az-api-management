@@ -88,5 +88,5 @@ stages:
                 azureSubscription: '$(azureSubscription)'
                 appType: functionApp
                 appName: $(app-name)
-                package: '$(Pipeline.Workspace)/App/Simulation.Service.zip'
+                package: '$(Pipeline.Workspace)/App/App.zip'
                 AppSettings: '-EndpointUrl $(EndpointUrl) -Ocp-Apim-Subscription-Key $(Ocp-Apim-Subscription-Key)'
