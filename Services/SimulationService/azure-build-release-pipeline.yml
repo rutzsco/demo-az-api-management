@@ -88,4 +88,4 @@ stages:
                 appType: functionApp
                 appName: $(app-name)
                 package: '$(Pipeline.Workspace)/App/App.zip'
-                AppSettings: '-EndpointUrl $(endpointUrl) -SubscriptionKey $(SubscriptionKey)'
+                AppSettings: '-EndpointUrl $(endpointUrl) -SubscriptionKey $(SubscriptionKey) -AuthTenantId $(AuthTenantId) -AuthClientId $(AuthClientId) -AuthClientSecret $(AuthClientSecret) -AuthScope $(AuthScope)'
