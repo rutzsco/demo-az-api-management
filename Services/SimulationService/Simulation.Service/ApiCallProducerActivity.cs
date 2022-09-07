@@ -21,7 +21,6 @@ namespace Simulation.Service
     {
         private readonly HttpClient _client;
 
-
         public ApiCallProducerActivity(HttpClient httpClient)
         {
             _client = httpClient;
@@ -41,19 +40,15 @@ namespace Simulation.Service
             var key = config["SubscriptionKey"];
             var logic = new GenericGetExecutionLogic(url, accessToken, key, _client, log);
 
-
             Random rnd = new Random();
-            int topicExecutions= rnd.Next(10,20);
-            int speakerExecutions = rnd.Next(0, 10);
-
-            for (int i = 0; i < topicExecutions; i++)
+            for (int i = 0; i < rnd.Next(10, 20); i++)
                 await logic.Execute("conference/topics");
 
-            for (int i = 0; i < speakerExecutions; i++)
+            for (int i = 0; i < rnd.Next(0, 10); i++)
                 await logic.Execute("conference/speakers");
 
-            for (int i = 0; i < speakerExecutions; i++)
-                await logic.Execute("demo/account");
+            for (int i = 0; i < rnd.Next(0, 20); i++)
+                await logic.Execute("demo/simuulate");
         }
     }
 }
