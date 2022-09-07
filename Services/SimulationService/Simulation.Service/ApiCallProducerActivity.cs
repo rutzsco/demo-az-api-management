@@ -28,7 +28,7 @@ namespace Simulation.Service
         }
 
         [FunctionName("ApiCallProducerActivity")]
-        public async Task Run([TimerTrigger("*/10 * * * * *")]TimerInfo timer, ExecutionContext context, ILogger log)
+        public async Task Run([TimerTrigger("*/30 * * * * *")]TimerInfo timer, ExecutionContext context, ILogger log)
         {
             log.LogInformation("In Timer Function");
 
@@ -41,8 +41,19 @@ namespace Simulation.Service
             var key = config["SubscriptionKey"];
             var logic = new GenericGetExecutionLogic(url, accessToken, key, _client, log);
 
-            await logic.Execute("topics");
-            await logic.Execute("speakers");
+
+            Random rnd = new Random();
+            int topicExecutions= rnd.Next(10,20);
+            int speakerExecutions = rnd.Next(0, 10);
+
+            for (int i = 0; i < topicExecutions; i++)
+                await logic.Execute("conference/topics");
+
+            for (int i = 0; i < speakerExecutions; i++)
+                await logic.Execute("conference/speakers");
+
+            for (int i = 0; i < speakerExecutions; i++)
+                await logic.Execute("demo/account");
         }
     }
 }

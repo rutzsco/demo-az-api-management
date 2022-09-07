@@ -15,7 +15,7 @@ variables:
   storageAccountName: 'azfuncapimssci'
   resourceGroupName: 'rutzsco-demo-api-management-ci' 
   templateFile: $(Pipeline.Workspace)/Infrastructure/main.bicep
-  endpointUrl: 'https://rutzsco-demo-api-management-ci-001.azure-api.net/conference'
+  endpointUrl: 'https://rutzsco-demo-api-management-ci-001.azure-api.net/'
 
 stages:
 - stage: Build
