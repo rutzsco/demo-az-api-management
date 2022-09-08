@@ -89,3 +89,20 @@ stages:
                 appName: $(app-name)
                 package: '$(Pipeline.Workspace)/App/App.zip'
                 AppSettings: '-EndpointUrl $(endpointUrl) -SubscriptionKey $(SubscriptionKey) -AuthTenantId $(AuthTenantId) -AuthClientId $(AuthClientId) -AuthClientSecret $(AuthClientSecret) -AuthScope $(AuthScope)'
+            - task: AzureCLI@2
+              displayName: '3. Create Function Infrastructure'
+              inputs:
+                azureSubscription: $(azureSubscription)
+                scriptType: bash
+                scriptLocation: inlineScript
+                inlineScript: |
+                  az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters functionAppName=$(app-name)002 functionAppStorageAccountName=$(storageAccountName) > outputs.json
+
+            - task: AzureFunctionApp@1
+              displayName: '4. Azure functions app deploy'
+              inputs:
+                azureSubscription: '$(azureSubscription)'
+                appType: functionApp
+                appName: $(app-name)002
+                package: '$(Pipeline.Workspace)/App/App.zip'
+                AppSettings: '-EndpointUrl $(endpointUrl) -SubscriptionKey $(SubscriptionKey2) -AuthTenantId $(AuthTenantId) -AuthClientId $(AuthClientId) -AuthClientSecret $(AuthClientSecret) -AuthScope $(AuthScope)'
