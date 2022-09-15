@@ -45,7 +45,10 @@ namespace Simulation.Service
                 await logic.Execute("conference/topics");
 
             for (int i = 0; i < rnd.Next(0, 10); i++)
+            {
                 await logic.Execute("conference/speakers");
+                await logic.Execute($"conference/speaker/{i}");
+            }
 
             for (int i = 0; i < rnd.Next(0, 20); i++)
                 await logic.Execute("demo/simulate");
