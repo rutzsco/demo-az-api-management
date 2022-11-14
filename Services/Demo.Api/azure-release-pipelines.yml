@@ -18,5 +18,5 @@ stages:
     azureSubscription: ${{ variables.azureSubscription }}
     region: ${{ variables.region }}
     resourceGroupName: 'rutzsco-demo-api-management-ci' 
-    serviceName: 'rutzsco-demo-api-management-ci-001'
+    serviceName: 'rutzsco-demo-api-management-ci-01'
     AADRegistrationName: aad-msft
