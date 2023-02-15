@@ -1,7 +1,6 @@
 <inbound>
-	<base />
-	<choose>
-		<set-variable name="bodySize" value="@(context.Request.Headers["Content-Length"][0])" />
+<base />
+	        <set-variable name="bodySize" value="@(context.Request.Headers["Content-Length"][0])" />
 		<choose>
 			<when condition="@(int.Parse(context.Variables.GetValueOrDefault<string>("bodySize"))<52428800)">
 				<!--let it pass through by doing nothing-->
@@ -15,5 +14,4 @@
 				</return-response>
 			</otherwise>
 		</choose>
-	</choose>
 </inbound>
