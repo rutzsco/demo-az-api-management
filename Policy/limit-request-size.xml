@@ -1,0 +1,19 @@
+<inbound>
+	<base />
+	<choose>
+		<set-variable name="bodySize" value="@(context.Request.Headers["Content-Length"][0])" />
+		<choose>
+			<when condition="@(int.Parse(context.Variables.GetValueOrDefault<string>("bodySize"))<52428800)">
+				<!--let it pass through by doing nothing-->
+			</when>
+			<otherwise>
+				<return-response>
+					<set-status code="413" reason="Payload Too Large" />
+					<set-body>
+                         @{return "Maximum allowed size for the POST requests is 52428800 bytes (50 MB). This request has size of "+ context.Variables.GetValueOrDefault<string>("bodySize") +" bytes";} 
+					</set-body>
+				</return-response>
+			</otherwise>
+		</choose>
+	</choose>
+</inbound>
