@@ -1,0 +1,15 @@
+<inbound>
+    <base />
+    <check-header name="HEADER_VALUE" failed-check-httpcode="400" failed-check-error-message="Invalid HEADER_VALUE Header" ignore-case="true">
+        <value>A</value>
+        <value>B</value>
+    </check-header>
+    <choose>
+        <when condition="@(context.Request.Headers.GetValueOrDefault("HEADER_VALUE","") == "A")">
+            <set-backend-service base-url="https://zumo-net46.azurewebsites.net/tables/movies/" />
+        </when>
+        <when condition="@(context.Request.Headers.GetValueOrDefault("HEADER_VALUE","") == "B")">
+            <set-backend-service base-url="https://zumo-netcore.azurewebsites.net/tables/movies/" />
+        </when>
+    </choose>
+</inbound>
