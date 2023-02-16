@@ -6,10 +6,10 @@
     </check-header>
     <choose>
         <when condition="@(context.Request.Headers.GetValueOrDefault("HEADER_VALUE","") == "A")">
-            <set-backend-service base-url="https://zumo-net46.azurewebsites.net/tables/movies/" />
+            <set-backend-service base-url="https://URL1" />
         </when>
         <when condition="@(context.Request.Headers.GetValueOrDefault("HEADER_VALUE","") == "B")">
-            <set-backend-service base-url="https://zumo-netcore.azurewebsites.net/tables/movies/" />
+            <set-backend-service base-url="https://URL2" />
         </when>
     </choose>
 </inbound>
