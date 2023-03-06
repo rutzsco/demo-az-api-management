@@ -1,0 +1,55 @@
+parameters: 
+- name: stageName
+  default: ''
+- name: environment
+  default: ''
+- name: azureSubscription
+  default: ''
+- name: resourceGroupName
+  default: ''
+- name: region
+  default: ''
+- name: functionAppName
+  default: ''
+- name: functionAppStorageName
+  default: ''
+- name: packageName
+  default: ''  
+- name: templateFile
+  default: ''
+- name: serviceBusConnectionString
+  default: ''  
+
+stages:
+  - stage: ${{ parameters.stageName }}
+    displayName: ${{ parameters.stageName }}
+
+    jobs:
+    - deployment: Deploy
+      displayName: Deploy
+      environment: ${{ parameters.environment }}
+      pool:
+        vmImage: 'ubuntu-latest'
+  
+      strategy:
+        runOnce:
+          deploy:
+  
+            steps:
+            - task: AzureCLI@2
+              inputs:
+                azureSubscription: ${{ parameters.azureSubscription }}
+                scriptType: bash
+                scriptLocation: inlineScript
+                inlineScript: |
+                  az group create --name ${{ parameters.resourceGroupName }} --location ${{ parameters.region }} 
+                  az deployment group create --resource-group ${{ parameters.resourceGroupName }} --template-file ${{ parameters.templateFile }} --parameters functionAppName=${{ parameters.functionAppName }} functionAppStorageAccountName=${{ parameters.functionAppStorageName }} > outputs.json
+
+            - task: AzureFunctionApp@1
+              displayName: 'Azure functions app deploy'
+              inputs:
+                azureSubscription: ${{ parameters.azureSubscription }}
+                appType: functionApp
+                appName: ${{ parameters.functionAppName }}
+                package: '$(Pipeline.Workspace)/build/App/${{ parameters.packageName }}'
+                AppSettings: '-ServiceBusConnectionString ${{ parameters.serviceBusConnectionString }}'

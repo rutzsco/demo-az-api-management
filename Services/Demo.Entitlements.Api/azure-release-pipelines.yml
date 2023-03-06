@@ -1,0 +1,25 @@
+trigger: none
+
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'demo-az-apim - entitlements api - BUILD'
+  
+variables:
+  vmImageName: 'ubuntu-latest'
+  azureSubscription: 'Demo Account'
+  region: 'eastus'
+
+stages:
+- template: azure-release-pipelines-stage-template.yml
+  parameters:
+    stageName: 'CI'
+    environment: 'API'
+    azureSubscription: ${{ variables.azureSubscription }}
+    resourceGroupName: 'rutzsco-demo-api-management-entitlements'
+    region: ${{ variables.region }}
+    functionAppName: 'rutzsco-demo-api-management-entitlements'
+    functionAppStorageName: 'rutzscoazfdentapi'
+    packageName: 'Demo.Entitlements.Api.zip'
+    templateFile: '$(Pipeline.Workspace)/build/Infrastructure/main.bicep'
+
