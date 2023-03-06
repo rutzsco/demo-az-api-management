@@ -13,12 +13,10 @@ namespace Demo.Entitlements.Api
     public static class EntitlementsGetEndpoint
     {
         [FunctionName("EntitlementsGetEndpoint")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req, ILogger log)
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req, ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
-
-            string name = req.Query["name"];
-
+            //string name = req.Query["name"];
             return new OkObjectResult("OK");
         }
     }
