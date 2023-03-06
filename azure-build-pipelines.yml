@@ -2,7 +2,10 @@ trigger:
   branches:
     include:
     - main
-
+  paths:
+    exclude:
+    - Services
+    - Policy
 pool:
   vmImage: 'ubuntu-latest'
 
