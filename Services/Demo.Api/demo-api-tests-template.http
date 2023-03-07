@@ -14,6 +14,7 @@ client_id=<AAD_CLIENTID_TENANT>
 ### Demo - Account  
 GET  {{baseUrl}}/demo/account
 content-type: application/json
+Authorization: Bearer {{aadTokenRequest.response.body.access_token}}
 
 
 
