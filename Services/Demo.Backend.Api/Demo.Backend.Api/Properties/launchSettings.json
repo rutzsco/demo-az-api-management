@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Demo.Entitlements.Api": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7033",
+      "launchBrowser": false
+    }
+  }
+}

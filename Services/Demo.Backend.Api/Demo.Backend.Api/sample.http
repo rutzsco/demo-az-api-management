@@ -1,0 +1,10 @@
+@baseUrl = https://rutzsco-demo-api-management-entitlements.azurewebsites.net/api
+
+
+### GET Entitlements
+
+GET {{baseUrl}}/EntitlementsGetEndpoint
+content-type: application/json
+
+{
+}
