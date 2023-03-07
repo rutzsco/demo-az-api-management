@@ -17,7 +17,7 @@ namespace Demo.Entitlements.Api
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
             //string name = req.Query["name"];
-            return new OkObjectResult("OK");
+            return new OkObjectResult(new { status = 200 });
         }
     }
 }
